@@ -1,0 +1,70 @@
+--- pom.xml	2011-12-01 09:20:20.000000000 +0100
++++ pom.xml-gil	2012-04-27 10:24:01.741796876 +0200
+@@ -119,17 +119,61 @@
+             </plugin>
+         
+             <plugin>
++                <groupId>org.apache.felix</groupId>
++                <artifactId>maven-bundle-plugin</artifactId>
++                <version>2.0.0</version>
++                <configuration>
++                    <instructions>
++                        <Bundle-Description>${project.description} bundled for OSGi distribution</Bundle-Description>
++                        <Bundle-Name>${project.artifactId}</Bundle-Name>
++                        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
++                        <DynamicImport-Package>org.glassfish.hk2.osgiresourcelocator</DynamicImport-Package>
++                        <Export-Package>javax.xml.bind.*;version="${project.version}"</Export-Package>
++                        <Import-Package>javax.activation,
++                            javax.xml.bind;version="${project.version}",
++                            javax.xml.bind.annotation;version="${project.version}",
++                            javax.xml.bind.annotation.adapters;version="${project.version}",
++                            javax.xml.bind.attachment;version="${project.version}",
++                            javax.xml.bind.helpers;version="${project.version}",
++                            javax.xml.bind.util;version="${project.version}",
++                            javax.xml.datatype,
++                            javax.xml.namespace,
++                            javax.xml.parsers,
++                            javax.xml.stream,
++                            javax.xml.transform,
++                            javax.xml.transform.dom,
++                            javax.xml.transform.sax,
++                            javax.xml.transform.stream,
++                            javax.xml.validation,
++                            org.w3c.dom,
++                            org.xml.sax,
++                            org.xml.sax.ext,
++                            org.xml.sax.helpers</Import-Package>
++                        <Extension-Name>javax.xml.bind</Extension-Name>
++                        <Specification-Title>${project.name}</Specification-Title>
++                        <Specification-Vendor>${project.organization.name}</Specification-Vendor>
++                        <Specification-Version>${project.version}</Specification-Version>
++                    </instructions>
++                </configuration>
++                <executions>
++                    <execution>
++                        <id>bundle-manifest</id>
++                        <phase>process-classes</phase>
++                        <goals>
++                            <goal>manifest</goal>
++                        </goals>
++                    </execution>
++                </executions>
++            </plugin>
++        
++            <plugin>
+                 <groupId>org.apache.maven.plugins</groupId>
+                 <artifactId>maven-jar-plugin</artifactId>
+                 <version>2.3.1</version>
+                 <configuration>
+                     <archive>
+-                        <manifestEntries>
+-                            <Extension-Name>javax.xml.bind</Extension-Name>
+-                        </manifestEntries>
+-                        <manifest>
+-                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+-                        </manifest>
++                        <!-- add the generated manifest to the archive -->
++                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                     </archive>
+                 </configuration>
+             </plugin>
