@@ -1,7 +1,7 @@
 %global oname jaxb-api
 Name:          glassfish-jaxb-api
 Version:       2.2.7
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Java Architecture for XML Binding
 Group:         Development/Libraries
 License:       CDDL or GPLv2 with exception
@@ -91,6 +91,9 @@ cp -pr target/site/apidocs/* %{buildroot}%{_javadocdir}/%{oname}
 %{_javadocdir}/%{oname}
 
 %changelog
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 2.2.7-4
+- Mass rebuild 2013-12-27
+
 * Wed Feb 13 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.2.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
